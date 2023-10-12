@@ -6,7 +6,6 @@ from urllib.error import URLError
 
 streamlit.title('My Mom\'s New Healthy Diner')
 
-
 streamlit.header('Breakfast Favorites')
 streamlit.text('🥣 Omega 3 & Blueberry Oatmeal')
 streamlit.text('🥗 Kale, Spinach & Rocket Smoothie')
@@ -26,25 +25,42 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # Display the all fruits table on the page.
 streamlit.dataframe(fruits_to_show)
 
-#New section to display fruityvice api response
-streamlit.header("Fruityvice Fruit Advice!")
+##New section to display fruityvice api response
+#streamlit.header("Fruityvice Fruit Advice!")
 
-# Add a Text Entry Box and Send the Input to Fruityvice as Part of the API Call
-fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
-streamlit.write('The user entered ', fruit_choice)
-
+## Add a Text Entry Box and Send the Input to Fruityvice as Part of the API Call
+#fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
+#streamlit.write('The user entered ', fruit_choice)
 
 #import requests
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + "kiwi")
+#fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + "kiwi")
 
-# writes data from Fruityvice API on the screen in the original format
-# streamlit.text(fruityvice_response.json())
+## writes data from Fruityvice API on the screen in the original format
+## streamlit.text(fruityvice_response.json())
 
-# creates the normalized table from the API repsonse
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-# display the normalized table on the page
-streamlit.dataframe(fruityvice_normalized)
+## creates the normalized table from the API repsonse
+#fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+## display the normalized table on the page
+#streamlit.dataframe(fruityvice_normalized)
 
+#New section to display fruityvice api response for taking in customers choices
+#Introducing this structure allows us to separate the code that is loaded once from the code that should be repeated each time a new value is entered.
+# Notice there are three lines of code under the ELSE. These are important steps we will be repeating. We can pull them out into a separate bit of code called a function. We'll do that next. 
+
+streamlit.header("Fruityvice Fruit Advice!")
+try:
+    fruit_choice = streamlit.text_input('What fruit would you like information about?')
+  if not fruit_choice:
+    streamlit.error("Please select a fruit to get information.")
+  else
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)    
+    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    streamlit.dataframe(fruityvice_normalized)
+
+except URLError as e:
+  streamlit.error()
+
+streamlit.write('The user entered ', fruit_choice)
 
 #stop snowflake because there's sme problem adding rows into DB from the app
 streamlit.stop()
