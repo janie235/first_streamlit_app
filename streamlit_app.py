@@ -39,6 +39,14 @@ streamlit.dataframe(fruits_to_show)
 ## display the normalized table on the page
 #streamlit.dataframe(fruityvice_normalized)
 
+
+
+# create a function
+def get_fruityvice_data(this_fruity_choice)
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + this_fruity_choice)    
+    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    return (fruityvice_normalized)
+
 #New section to display fruityvice api response for taking in customers choices
 #Introducing this structure allows us to separate the code that is loaded once from the code that should be repeated each time a new value is entered.
 #Notice there are three lines of code under the ELSE. These are important steps we will be repeating. We can pull them out into a separate bit of code called a function. We'll do that next. 
@@ -49,9 +57,8 @@ try:
     if not fruit_choice:
         streamlit.error("Please select a fruit to get information.")
     else:
-        fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)    
-        fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-        streamlit.dataframe(fruityvice_normalized)
+        back_from_function = get_fruityvice_data(fruit_choice)
+        streamlit.dataframe(back_from_function)
 
 except URLError as e:
     streamlit.error()
