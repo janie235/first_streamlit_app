@@ -41,6 +41,10 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # display the normalized table on the page
 streamlit.dataframe(fruityvice_normalized)
 
+
+#stop snowflake because there's sme problem adding rows into DB from the app
+streamlit.stop()
+
 # adding SF connector
 import snowflake.connector
 
@@ -71,7 +75,7 @@ streamlit.dataframe(my_data_rows)
 add_my_fruit = streamlit.text_input('What fruit would you like to add?','jackfruit')
 streamlit.write('Thanks for adding  jackfruit')
 
-
+# this will be adding rows into SF table after inserts them in the app
 my_cur.execute("insert into fruit_load_list values ('from streamlit')")
 
 
