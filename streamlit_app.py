@@ -27,17 +27,13 @@ streamlit.dataframe(fruits_to_show)
 
 ##New section to display fruityvice api response
 #streamlit.header("Fruityvice Fruit Advice!")
-
 ## Add a Text Entry Box and Send the Input to Fruityvice as Part of the API Call
 #fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
 #streamlit.write('The user entered ', fruit_choice)
-
-#import requests
+##import requests
 #fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + "kiwi")
-
 ## writes data from Fruityvice API on the screen in the original format
-## streamlit.text(fruityvice_response.json())
-
+# streamlit.text(fruityvice_response.json())
 ## creates the normalized table from the API repsonse
 #fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 ## display the normalized table on the page
@@ -45,7 +41,7 @@ streamlit.dataframe(fruits_to_show)
 
 #New section to display fruityvice api response for taking in customers choices
 #Introducing this structure allows us to separate the code that is loaded once from the code that should be repeated each time a new value is entered.
-# Notice there are three lines of code under the ELSE. These are important steps we will be repeating. We can pull them out into a separate bit of code called a function. We'll do that next. 
+#Notice there are three lines of code under the ELSE. These are important steps we will be repeating. We can pull them out into a separate bit of code called a function. We'll do that next. 
 
 streamlit.header("Fruityvice Fruit Advice!")
 try:
